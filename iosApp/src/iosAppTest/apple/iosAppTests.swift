@@ -1,26 +1,54 @@
 import XCTest
+import shared
+
 @testable import iosApp
 
 class iosAppTests: XCTestCase {
 
+    private var source: ConferencesSource
+
+    private var repo: ConferencesRepository
+
+    private var useCase: GetConferencesUseCase
+
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+         source = ConferencesSource()
+         repo = ConferencesRepository(source: source)
+         useCase = GetConferencesUseCase(conferencesRepository: repo)
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    override func tearDown() {}
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+    func testConferencesSource(){
+        let expectation = XCTestExpectation(description: "Conferences loaded")
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        source.getConferences { result, error in
+            XCTAssertTrue(!result!.isEmpty)
+            expectation.fulfill()
         }
+
+        wait(for: [expectation], timeout: 5.0)
+    }
+
+    func testConferencesRepository(){
+        let expectation = XCTestExpectation(description: "Conferences loaded")
+
+        repo.getConferences { result, error in
+            XCTAssertTrue(!result!.isEmpty)
+            expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 5.0)
+    }
+
+    func testConferencesUseCase() {
+        let expectation = XCTestExpectation(description: "Conferences loaded")
+
+        useCase.invoke { result, error in
+            XCTAssertTrue(!result!.isEmpty)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5.0)
     }
 
 }

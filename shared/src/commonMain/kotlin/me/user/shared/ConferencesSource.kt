@@ -8,6 +8,10 @@ interface IConferencesSource {
     suspend fun getConferences(): String
 }
 
+fun fixRaw(result: String) = result.replace("|", "")
+    .replace("{", "")
+    .replace("}", "")
+
 class ConferencesSource : IConferencesSource {
     private val url = "https://raw.githubusercontent.com/Lascorbe/CocoaConferences/master/_data/conferences.yml"
     override suspend fun getConferences(): String {
@@ -16,8 +20,6 @@ class ConferencesSource : IConferencesSource {
         val result = client.get<String> {
             url(address.toString())
         }
-        return result.replace("|", "")
-            .replace("{", "")
-            .replace("}","")
+        return fixRaw(result)
     }
 }
