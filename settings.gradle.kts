@@ -8,7 +8,7 @@ pluginManagement {
     }
     
 }
-rootProject.name = "mpptest"
+rootProject.name = "mppsample"
 
 
 include(":iosApp")

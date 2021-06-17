@@ -20,7 +20,7 @@ struct ContentView: View {
         NavigationView {
             List(viewModel.conferences, id: \.self) { confrerence in
                 Text(confrerence.name)
-            }
+            }.navigationBarTitle("Conferences")
         }.onAppear {
             viewModel.reload()
         }

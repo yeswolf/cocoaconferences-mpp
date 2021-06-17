@@ -4,7 +4,7 @@ plugins {
 
 apple {
     iosApp {
-        productName = "mpptest"
+        productName = "mppsample"
 
         sceneDelegateClass = "SceneDelegate"
         launchStoryboard = "LaunchScreen"
