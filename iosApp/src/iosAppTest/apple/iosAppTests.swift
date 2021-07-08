@@ -5,16 +5,7 @@ import shared
 
 class iosAppTests: XCTestCase {
 
-    private var source: ConferencesSource
-
-    private var repo: ConferencesRepository
-
-    private var useCase: GetConferencesUseCase
-
     override func setUp() {
-         source = ConferencesSource()
-         repo = ConferencesRepository(source: source)
-         useCase = GetConferencesUseCase(conferencesRepository: repo)
     }
 
     override func tearDown() {}
@@ -22,6 +13,7 @@ class iosAppTests: XCTestCase {
     func testConferencesSource(){
         let expectation = XCTestExpectation(description: "Conferences loaded")
 
+        let source = ConferencesSource()
         source.getConferences { result, error in
             XCTAssertTrue(!result!.isEmpty)
             expectation.fulfill()
@@ -33,6 +25,8 @@ class iosAppTests: XCTestCase {
     func testConferencesRepository(){
         let expectation = XCTestExpectation(description: "Conferences loaded")
 
+        let source = ConferencesSource()
+        let repo = ConferencesRepository(source: source)
         repo.getConferences { result, error in
             XCTAssertTrue(!result!.isEmpty)
             expectation.fulfill()
@@ -43,7 +37,9 @@ class iosAppTests: XCTestCase {
 
     func testConferencesUseCase() {
         let expectation = XCTestExpectation(description: "Conferences loaded")
-
+        let source = ConferencesSource()
+        let repo = ConferencesRepository(source: source)
+        let useCase = GetConferencesUseCase(conferencesRepository: repo)
         useCase.invoke { result, error in
             XCTAssertTrue(!result!.isEmpty)
             expectation.fulfill()

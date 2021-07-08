@@ -8,7 +8,7 @@ pluginManagement {
     }
     
 }
-rootProject.name = "mppsample"
+rootProject.name = "cocoaconferences-mpp"
 
 
 include(":iosApp")

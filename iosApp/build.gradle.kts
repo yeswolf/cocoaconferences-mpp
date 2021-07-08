@@ -1,10 +1,10 @@
 plugins {
-    id("org.jetbrains.gradle.apple.applePlugin") version "211.5739-0.11-SNAPSHOT"
+    id("org.jetbrains.gradle.apple.applePlugin") version "211.5739-0.13-dev-5"
 }
 
 apple {
     iosApp {
-        productName = "mppsample"
+        productName = "cocoaconferences-mpp"
 
         sceneDelegateClass = "SceneDelegate"
         launchStoryboard = "LaunchScreen"

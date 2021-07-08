@@ -33,14 +33,13 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-native-mt")
             }
         }
         val androidMain by getting {
             dependencies {
                 implementation("com.google.android.material:material:1.2.1")
                 implementation("io.ktor:ktor-client-cio:1.6.0")
-
-
             }
         }
         val androidTest by getting {

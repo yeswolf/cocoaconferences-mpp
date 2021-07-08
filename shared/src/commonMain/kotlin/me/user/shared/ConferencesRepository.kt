@@ -8,11 +8,10 @@ interface IConferencesRepository {
 }
 
 class ConferencesRepository (val source: IConferencesSource) : IConferencesRepository {
-    override suspend fun getConferences() : List<Conference> {
-        val yamlList = Yaml.Default.decodeFromString(
+    override suspend fun getConferences(): List<Conference> {
+        return Yaml.decodeFromString(
             ListSerializer(elementSerializer = Conference.serializer()),
             source.getConferences()
         )
-        return yamlList
     }
 }
