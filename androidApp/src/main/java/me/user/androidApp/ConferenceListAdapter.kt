@@ -17,7 +17,7 @@ class ConferenceListAdapter(context: Context, users: List<Conference>) :
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_row, parent, false)
         }
-        var title: TextView = convertView!!.findViewById(R.id.txtTitle)
+        val title: TextView = convertView!!.findViewById(R.id.txtTitle)
         title.text = conference!!.name
         return convertView
     }

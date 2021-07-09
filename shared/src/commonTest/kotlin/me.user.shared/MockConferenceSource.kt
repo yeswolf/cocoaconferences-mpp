@@ -1,9 +1,13 @@
 package me.user.shared
 
-class MockConferencesSource: IConferencesSource {
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
+
+class MockConferencesSource : IConferencesSource {
     override suspend fun getConferences(): String {
-        return fixRaw(
-            """
+        return suspendCoroutine { continuation ->
+            val result = fixRaw(
+                """
             ##########################
 #
 # Use this file to add a new conference to the list of past/upcoming Cococa conferences
@@ -1661,6 +1665,8 @@ class MockConferencesSource: IConferencesSource {
     link: https://360idev.com/call-for-papers/
     deadline: 2021-05-07
         """.trimIndent()
-        )
+            )
+            continuation.resume(result)
+        }
     }
 }

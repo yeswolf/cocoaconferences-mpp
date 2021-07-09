@@ -11,6 +11,7 @@ interface IConferencesSource {
 fun fixRaw(result: String) = result.replace("|", "")
     .replace("{", "")
     .replace("}", "")
+    .replace("http:", "https:")
 
 class ConferencesSource : IConferencesSource {
     private val url = "https://raw.githubusercontent.com/Lascorbe/CocoaConferences/master/_data/conferences.yml"
