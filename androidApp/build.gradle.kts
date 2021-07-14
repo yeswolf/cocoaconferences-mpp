@@ -18,6 +18,8 @@ kotlin {
                 implementation("androidx.appcompat:appcompat:1.2.0")
                 implementation("androidx.constraintlayout:constraintlayout:2.0.2")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
+                implementation("io.insert-koin:koin-android:3.1.2")
+                implementation("io.insert-koin:koin-android-compat:3.1.2")
             }
         }
     }

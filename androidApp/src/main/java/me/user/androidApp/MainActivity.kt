@@ -6,22 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import me.user.shared.*
-
-
-fun greet(): String {
-    return Greeting().greeting()
-}
+import me.user.shared.GetConferencesUseCase
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
+    val getConferences by inject<GetConferencesUseCase>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTitle(R.string.main_title)
 
         val lv: ListView = findViewById(R.id.conferenceListView)
-        val getConferences = GetConferencesUseCase(ConferencesRepository(ConferencesSource()))
-
         GlobalScope.launch(Dispatchers.Main) {
             lv.adapter = ConferenceListAdapter(lv.context, getConferences())
         }

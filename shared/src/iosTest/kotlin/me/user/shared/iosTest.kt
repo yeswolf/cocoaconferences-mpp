@@ -1,41 +1,55 @@
 package me.user.shared
 
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
+import org.koin.test.KoinTest
+import org.koin.test.inject
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class IosTests {
+class IosTests : KoinTest {
+    companion object {
+        init {
+            val testModule = module {
+                single<IConferencesSource> { MockConferencesSource() }
+                single<IConferencesRepository> { ConferencesRepository() }
+                single { GetConferencesUseCase() }
+            }
+            startKoin {
+                modules(testModule)
+            }
+        }
+    }
+
+    private val repo by inject<IConferencesRepository>()
+    private val source by inject<IConferencesSource>()
+    private val useCase by inject<GetConferencesUseCase>()
 
     @Test
     fun testConferencesSource() {
-        val source = MockConferencesSource()
-        var result = ""
+        var result: String
         runBlocking {
             result = source.getConferences()
+            assertTrue(result.isNotEmpty())
         }
-        assertTrue(result.isNotEmpty())
     }
 
     @Test
     fun testConferencesRepository() {
-        val source = MockConferencesSource()
-        val repo = ConferencesRepository(source)
-        var conferences: List<Conference> = emptyList()
+        var conferences: List<Conference>
         runBlocking {
             conferences = repo.getConferences()
+            assertTrue(conferences.isNotEmpty())
         }
-        assertTrue(conferences.isNotEmpty())
     }
 
     @Test
     fun testConferencesUseCase() {
-        val source = MockConferencesSource()
-        val repo = ConferencesRepository(source)
-        val useCase = GetConferencesUseCase(repo)
-        var conferences: List<Conference> = emptyList()
+        var conferences: List<Conference>
         runBlocking {
             conferences = useCase()
+            assertTrue(conferences.isNotEmpty())
         }
-        assertTrue(conferences.isNotEmpty())
     }
 
 }

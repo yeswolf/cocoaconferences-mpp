@@ -3,7 +3,7 @@ import shared
 
 class ConferenceListViewModel: ObservableObject {
     @Published var conferences = [Conference]()
-    private var getConferences = GetConferencesUseCase(conferencesRepository: ConferencesRepository(source: ConferencesSource()))
+    private var getConferences = GetConferencesUseCase()
 
     func reload() {
         getConferences.invoke { result, error in
