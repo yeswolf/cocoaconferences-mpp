@@ -1,6 +1,8 @@
 package me.user.shared
 
 import kotlinx.coroutines.*
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
@@ -14,6 +16,18 @@ fun runBlocking(block: suspend () -> Unit) {
 }
 
 class CommonTests {
+    companion object {
+        init {
+            val testModule = module {
+                single <IConferencesSource> { MockConferencesSource() }
+                single <IConferencesRepository> { ConferencesRepository() }
+                single { GetConferencesUseCase() }
+            }
+            startKoin {
+                modules(testModule)
+            }
+        }
+    }
     @Test
     fun testConferencesSource() {
         val source = MockConferencesSource()
@@ -26,8 +40,7 @@ class CommonTests {
 
     @Test
     fun testConferencesRepository() {
-        val source = MockConferencesSource()
-        val repo = ConferencesRepository(source)
+        val repo = ConferencesRepository()
         var conferences: List<Conference> = emptyList()
         runBlocking {
             conferences = repo.getConferences()
@@ -37,9 +50,7 @@ class CommonTests {
 
     @Test
     fun testConferencesUseCase() {
-        val source = MockConferencesSource()
-        val repo = ConferencesRepository(source)
-        val useCase = GetConferencesUseCase(repo)
+        val useCase = GetConferencesUseCase()
         var conferences: List<Conference> = emptyList()
         runBlocking {
             conferences = useCase()

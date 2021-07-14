@@ -24,6 +24,7 @@ kotlin {
                 implementation("net.mamoe.yamlkt:yamlkt:0.9.0")
                 implementation("io.ktor:ktor-client-core:1.6.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-native-mt")
+                implementation("io.insert-koin:koin-core:3.1.2")
             }
         }
         val commonTest by getting {
@@ -33,6 +34,7 @@ kotlin {
                 implementation(kotlin("test-junit"))
                 implementation("junit:junit:4.13")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-native-mt")
+                implementation("io.insert-koin:koin-test:3.1.2")
             }
         }
         val androidMain by getting {
@@ -52,7 +54,11 @@ kotlin {
                 implementation("io.ktor:ktor-client-ios:1.6.0")
             }
         }
-        val iosTest by getting
+        val iosTest by getting {
+            dependencies {
+                implementation("io.insert-koin:koin-test:3.1.2")
+            }
+        }
     }
 }
 

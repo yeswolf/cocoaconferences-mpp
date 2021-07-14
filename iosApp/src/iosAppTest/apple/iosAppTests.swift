@@ -12,7 +12,6 @@ class iosAppTests: XCTestCase {
 
     func testConferencesSource(){
         let expectation = XCTestExpectation(description: "Conferences loaded")
-
         let source = ConferencesSource()
         source.getConferences { result, error in
             XCTAssertTrue(!result!.isEmpty)
@@ -24,9 +23,7 @@ class iosAppTests: XCTestCase {
 
     func testConferencesRepository(){
         let expectation = XCTestExpectation(description: "Conferences loaded")
-
-        let source = ConferencesSource()
-        let repo = ConferencesRepository(source: source)
+        let repo = ConferencesRepository()
         repo.getConferences { result, error in
             XCTAssertTrue(!result!.isEmpty)
             expectation.fulfill()
@@ -37,9 +34,7 @@ class iosAppTests: XCTestCase {
 
     func testConferencesUseCase() {
         let expectation = XCTestExpectation(description: "Conferences loaded")
-        let source = ConferencesSource()
-        let repo = ConferencesRepository(source: source)
-        let useCase = GetConferencesUseCase(conferencesRepository: repo)
+        let useCase = GetConferencesUseCase()
         useCase.invoke { result, error in
             XCTAssertTrue(!result!.isEmpty)
             expectation.fulfill()

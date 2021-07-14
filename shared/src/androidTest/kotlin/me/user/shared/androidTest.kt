@@ -1,12 +1,30 @@
 package me.user.shared
 
-import org.junit.Assert.assertTrue
 import org.junit.Test
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
+import org.koin.test.KoinTest
+import org.koin.test.inject
 
-class AndroidTests {
+class AndroidTests : KoinTest {
+    companion object {
+        init {
+            val testModule = module {
+                single <IConferencesSource> { MockConferencesSource() }
+                single <IConferencesRepository> { ConferencesRepository() }
+                single { GetConferencesUseCase() }
+            }
+            startKoin {
+                modules(testModule)
+            }
+        }
+    }
+    private val repo by inject<IConferencesRepository> ()
+    private val source by inject<IConferencesSource> ()
+    private val useCase by inject<GetConferencesUseCase>()
+
     @Test
     fun testConferencesSource() {
-        val source = MockConferencesSource()
         var result = ""
         runBlocking {
             result = source.getConferences()
@@ -16,8 +34,6 @@ class AndroidTests {
 
     @Test
     fun testConferencesRepository() {
-        val source = MockConferencesSource()
-        val repo = ConferencesRepository(source)
         var conferences: List<Conference> = emptyList()
         runBlocking {
             conferences = repo.getConferences()
@@ -27,9 +43,6 @@ class AndroidTests {
 
     @Test
     fun testConferencesUseCase() {
-        val source = MockConferencesSource()
-        val repo = ConferencesRepository(source)
-        val useCase = GetConferencesUseCase(repo)
         var conferences: List<Conference> = emptyList()
         runBlocking {
             conferences = useCase()
