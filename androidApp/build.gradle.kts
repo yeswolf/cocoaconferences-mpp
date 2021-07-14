@@ -1,7 +1,6 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.application")
-    id("kotlin-android-extensions")
 }
 
 repositories {
