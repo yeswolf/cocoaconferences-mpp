@@ -7,12 +7,12 @@ import org.koin.test.inject
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
-class IosTests: KoinTest {
+class IosTests : KoinTest {
     companion object {
         init {
             val testModule = module {
-                single <IConferencesSource> { MockConferencesSource() }
-                single <IConferencesRepository> { ConferencesRepository() }
+                single<IConferencesSource> { MockConferencesSource() }
+                single<IConferencesRepository> { ConferencesRepository() }
                 single { GetConferencesUseCase() }
             }
             startKoin {
@@ -20,37 +20,36 @@ class IosTests: KoinTest {
             }
         }
     }
-    private val repo by inject<IConferencesRepository> ()
-    private val source by inject<IConferencesSource> ()
+
+    private val repo by inject<IConferencesRepository>()
+    private val source by inject<IConferencesSource>()
     private val useCase by inject<GetConferencesUseCase>()
+
     @Test
     fun testConferencesSource() {
-//        val source = MockConferencesSource()
-        var result = ""
+        var result: String
         runBlocking {
             result = source.getConferences()
+            assertTrue(result.isNotEmpty())
         }
-        assertTrue(result.isNotEmpty())
     }
 
     @Test
     fun testConferencesRepository() {
-//        val repo = ConferencesRepository()
-        var conferences: List<Conference> = emptyList()
+        var conferences: List<Conference>
         runBlocking {
             conferences = repo.getConferences()
+            assertTrue(conferences.isNotEmpty())
         }
-        assertTrue(conferences.isNotEmpty())
     }
 
     @Test
     fun testConferencesUseCase() {
-//        val useCase = GetConferencesUseCase()
-        var conferences: List<Conference> = emptyList()
+        var conferences: List<Conference>
         runBlocking {
             conferences = useCase()
+            assertTrue(conferences.isNotEmpty())
         }
-        assertTrue(conferences.isNotEmpty())
     }
 
 }

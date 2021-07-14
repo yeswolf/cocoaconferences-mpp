@@ -1,5 +1,6 @@
 package me.user.shared
 
+import junit.framework.Assert.assertTrue
 import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -10,8 +11,8 @@ class AndroidTests : KoinTest {
     companion object {
         init {
             val testModule = module {
-                single <IConferencesSource> { MockConferencesSource() }
-                single <IConferencesRepository> { ConferencesRepository() }
+                single<IConferencesSource> { MockConferencesSource() }
+                single<IConferencesRepository> { ConferencesRepository() }
                 single { GetConferencesUseCase() }
             }
             startKoin {
@@ -19,34 +20,35 @@ class AndroidTests : KoinTest {
             }
         }
     }
-    private val repo by inject<IConferencesRepository> ()
-    private val source by inject<IConferencesSource> ()
+
+    private val repo by inject<IConferencesRepository>()
+    private val source by inject<IConferencesSource>()
     private val useCase by inject<GetConferencesUseCase>()
 
     @Test
     fun testConferencesSource() {
-        var result = ""
+        var result: String
         runBlocking {
             result = source.getConferences()
+            assertTrue(result.isNotEmpty())
         }
-        kotlin.test.assertTrue(result.isNotEmpty())
     }
 
     @Test
     fun testConferencesRepository() {
-        var conferences: List<Conference> = emptyList()
+        var conferences: List<Conference>
         runBlocking {
             conferences = repo.getConferences()
+            assertTrue(conferences.isNotEmpty())
         }
-        kotlin.test.assertTrue(conferences.isNotEmpty())
     }
 
     @Test
     fun testConferencesUseCase() {
-        var conferences: List<Conference> = emptyList()
+        var conferences: List<Conference>
         runBlocking {
             conferences = useCase()
+            assertTrue(conferences.isNotEmpty())
         }
-        kotlin.test.assertTrue(conferences.isNotEmpty())
     }
 }
