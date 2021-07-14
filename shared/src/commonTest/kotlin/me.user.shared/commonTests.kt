@@ -1,6 +1,9 @@
 package me.user.shared
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
@@ -15,7 +18,7 @@ fun runBlocking(block: suspend () -> Unit) {
     }
 }
 
-class CommonTests: KoinTest {
+class CommonTests : KoinTest {
 
     companion object {
         init {
@@ -29,8 +32,9 @@ class CommonTests: KoinTest {
             }
         }
     }
-    private val repo by inject<IConferencesRepository> ()
-    private val source by inject<IConferencesSource> ()
+
+    private val repo by inject<IConferencesRepository>()
+    private val source by inject<IConferencesSource>()
     private val useCase by inject<GetConferencesUseCase>()
 
     @Test

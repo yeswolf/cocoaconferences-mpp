@@ -11,11 +11,11 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
 }
 
 // called by iOS etc
-fun initKoin() = initKoin{}
+fun initKoin() = initKoin {}
 
 val mainModule = module {
-    single <IConferencesSource> { ConferencesSource() }
-    single <IConferencesRepository> { ConferencesRepository() }
+    single<IConferencesSource> { ConferencesSource() }
+    single<IConferencesRepository> { ConferencesRepository() }
     single { GetConferencesUseCase() }
 }
 
