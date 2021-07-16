@@ -10,7 +10,7 @@ apple {
         launchStoryboard = "LaunchScreen"
 
         //productInfo["NSAppTransportSecurity"] = mapOf("NSAllowsArbitraryLoads" to true)
-        //buildSettings["OTHER_LDFLAGS"] = ""
+        //buildSettings.OTHER_LDFLAGS("")
 
         dependencies {
             implementation(project(":shared"))
