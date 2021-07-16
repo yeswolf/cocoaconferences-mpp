@@ -18,8 +18,8 @@ struct ContentView: View {
     var body: some View {
 
         NavigationView {
-            List(viewModel.conferences, id: \.self) { confrerence in
-                Text(confrerence.name)
+            List(viewModel.conferences, id: \.self) { conference in
+                Text(conference.name)
             }.navigationBarTitle("Conferences")
         }.onAppear {
             viewModel.reload()
