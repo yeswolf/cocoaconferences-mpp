@@ -4,7 +4,7 @@ plugins {
 
 apple {
     iosApp {
-        productName = "cocoaconferences-mpp"
+        productName = "CocoaConferences"
 
         sceneDelegateClass = "SceneDelegate"
         launchStoryboard = "LaunchScreen"
