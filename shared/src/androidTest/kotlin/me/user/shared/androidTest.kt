@@ -1,23 +1,30 @@
 package me.user.shared
 
-import junit.framework.Assert.assertTrue
 import org.junit.Test
 import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
+import kotlin.test.assertTrue
 
 class AndroidTests : KoinTest {
-    companion object {
-        init {
-            val testModule = module {
-                single<IConferencesSource> { MockConferencesSource() }
-                single<IConferencesRepository> { ConferencesRepository() }
-                single { GetConferencesUseCase() }
-            }
-            startKoin {
-                modules(testModule)
-            }
+    @AfterTest
+    fun tearDown() {
+        stopKoin()
+    }
+
+    @BeforeTest
+    fun setup() {
+        val testModule = module {
+            single<IConferencesSource> { MockConferencesSource() }
+            single<IConferencesRepository> { ConferencesRepository() }
+            single { GetConferencesUseCase() }
+        }
+        startKoin {
+            modules(testModule)
         }
     }
 
@@ -27,28 +34,28 @@ class AndroidTests : KoinTest {
 
     @Test
     fun testConferencesSource() {
-        var result: String
+        var result = ""
         runBlocking {
             result = source.getConferences()
-            assertTrue(result.isNotEmpty())
         }
+        assertTrue(result.isNotEmpty())
     }
 
     @Test
     fun testConferencesRepository() {
-        var conferences: List<Conference>
+        var conferences: List<Conference> = listOf()
         runBlocking {
             conferences = repo.getConferences()
-            assertTrue(conferences.isNotEmpty())
         }
+        assertTrue(conferences.isNotEmpty())
     }
 
     @Test
     fun testConferencesUseCase() {
-        var conferences: List<Conference>
+        var conferences: List<Conference> = listOf()
         runBlocking {
             conferences = useCase()
-            assertTrue(conferences.isNotEmpty())
         }
+        assertTrue(conferences.isNotEmpty())
     }
 }
