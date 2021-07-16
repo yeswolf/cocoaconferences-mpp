@@ -1,6 +1,6 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.application")
+    kotlin(Plugins.mpp)
+    id(Plugins.androidApplication)
 }
 
 repositories {
@@ -13,26 +13,26 @@ kotlin {
     sourceSets {
         val androidMain by getting {
             dependencies {
-                implementation(project(":shared"))
-                implementation("com.google.android.material:material:1.2.1")
-                implementation("androidx.appcompat:appcompat:1.2.0")
-                implementation("androidx.constraintlayout:constraintlayout:2.0.2")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0")
-                implementation("io.insert-koin:koin-android:3.1.2")
-                implementation("io.insert-koin:koin-android-compat:3.1.2")
+                implementation(project(Projects.shared))
+                implementation(Deps.androidMaterial)
+                implementation(Deps.androidAppCompat)
+                implementation(Deps.androidConstraintLayout)
+                implementation(Deps.androidCoroutines)
+                implementation(Deps.koinAndroid)
+                implementation(Deps.koinAndroidCompat)
             }
         }
     }
 }
 
 android {
-    compileSdkVersion(29)
+    compileSdkVersion(ConfigData.compileSdk)
     defaultConfig {
-        applicationId = "me.user.androidApp"
-        minSdkVersion(26)
-        targetSdkVersion(29)
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = ConfigData.androidID
+        minSdkVersion(ConfigData.minSdk)
+        targetSdkVersion(ConfigData.targetSdk)
+        versionCode = ConfigData.versionCode
+        versionName = ConfigData.versionName
     }
     compileOptions {
         // Flag to enable support for the new language APIs

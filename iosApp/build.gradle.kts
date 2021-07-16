@@ -1,10 +1,10 @@
 plugins {
-    id("org.jetbrains.gradle.apple.applePlugin") version "211.5739-0.12"
+    id(Plugins.apple) version Versions.apple
 }
 
 apple {
     iosApp {
-        productName = "cocoaconferences-mpp"
+        productName = ConfigData.appName
 
         sceneDelegateClass = "SceneDelegate"
         launchStoryboard = "LaunchScreen"
@@ -13,7 +13,7 @@ apple {
         //buildSettings["OTHER_LDFLAGS"] = ""
 
         dependencies {
-            implementation(project(":shared"))
+            implementation(project(Projects.shared))
         }
     }
 }
