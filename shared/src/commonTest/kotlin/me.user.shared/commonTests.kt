@@ -1,6 +1,7 @@
 package me.user.shared
 
 import kotlinx.coroutines.*
+import me.user.shared.mocks.MockConferencesSource
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module

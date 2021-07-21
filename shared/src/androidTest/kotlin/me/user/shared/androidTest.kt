@@ -1,5 +1,6 @@
 package me.user.shared
 
+import me.user.shared.mocks.MockConferencesSource
 import org.junit.Test
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin

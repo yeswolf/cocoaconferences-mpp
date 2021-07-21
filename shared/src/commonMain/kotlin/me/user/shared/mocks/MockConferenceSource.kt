@@ -1,5 +1,7 @@
-package me.user.shared
+package me.user.shared.mocks
 
+import me.user.shared.IConferencesSource
+import me.user.shared.fixRaw
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
